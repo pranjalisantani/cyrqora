@@ -13,11 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ACM FACE | Independent Prototype",
+  title: "CYRQORA | Independent Prototype",
   description:
     "Independent digital platform prototype exploring modern web architecture and community storytelling for computing students.",
   keywords: [
-    "ACM FACE",
+    "CYRQORA",
     "Independent Prototype",
     "Computing Community",
     "Computer Science",
