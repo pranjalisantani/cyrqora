@@ -298,10 +298,10 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-mono text-xs uppercase tracking-wider text-cyan-400 flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-              Event Photo Gallery ({event.photos ? event.photos.length : 0})
+              Visual Session Archive ({event.photos ? event.photos.length : 0})
             </h3>
             <span className="text-[10px] font-mono text-slate-500">
-              {isPast ? "Archived Captures" : "Past Workshop Reference"}
+              {isPast ? "Archived Placeholder Records" : "Sample Workshop Archive"}
             </span>
           </div>
 
@@ -314,7 +314,7 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
                 >
                   <div className="h-28 w-full rounded-lg bg-gradient-to-br from-cyan-950/40 via-slate-900 to-[#020510] border border-cyan-500/10 flex items-center justify-center relative overflow-hidden">
                     <span className="font-mono text-xs text-cyan-400/60 font-medium">
-                      [PHOTO // {photo.tag}]
+                      [SAMPLE ARCHIVE // {photo.tag}]
                     </span>
                   </div>
                   <p className="mt-2 text-[11px] text-slate-300 font-light leading-snug">
@@ -325,7 +325,7 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
             </div>
           ) : (
             <div className="rounded-xl border border-slate-800/80 bg-[#030712]/50 p-6 text-center font-mono text-xs text-slate-500">
-              Photos from this event will be uploaded to this session record following completion.
+              Session imagery and slides will be uploaded to this archive following event completion.
             </div>
           )}
         </div>

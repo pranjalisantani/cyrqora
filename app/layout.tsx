@@ -13,17 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ACM 2026 Digital Experience // Independent Community Platform Prototype",
+  title: "ACM FACE | Independent Prototype",
   description:
-    "Independent digital platform prototype and architectural concept for a student computing community web experience. Built with Next.js, React, and Tailwind CSS.",
+    "Independent digital platform prototype exploring modern web architecture and community storytelling for computing students.",
   keywords: [
-    "ACM 2026",
-    "Digital Experience Prototype",
+    "ACM FACE",
+    "Independent Prototype",
     "Computing Community",
     "Computer Science",
     "Next.js",
     "React",
-    "Open Source",
+    "TypeScript",
   ],
 };
 
