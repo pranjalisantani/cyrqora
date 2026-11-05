@@ -31,9 +31,14 @@ export default function NetworkCanvas({
 }: NetworkCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const progressRef = useRef(progress);
+  const renderRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     progressRef.current = progress;
+    // Trigger on-demand render in reduced motion mode
+    if (renderRef.current) {
+      renderRef.current();
+    }
   }, [progress]);
 
   useEffect(() => {
@@ -47,6 +52,11 @@ export default function NetworkCanvas({
     let width = 0;
     let height = 0;
     let dpr = 1;
+
+    const motionQuery = typeof window !== "undefined"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)")
+      : null;
+    let isReduced = motionQuery ? motionQuery.matches : false;
 
     // Camera state for smooth lerp
     const camera = {
@@ -95,14 +105,14 @@ export default function NetworkCanvas({
           x: c.cx + (Math.random() - 0.5) * spreadX,
           y: c.cy + (Math.random() - 0.5) * spreadY,
           z: c.cz + (Math.random() - 0.5) * spreadZ,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          vz: (Math.random() - 0.5) * 0.2,
+          vx: isReduced ? 0 : (Math.random() - 0.5) * 0.25,
+          vy: isReduced ? 0 : (Math.random() - 0.5) * 0.25,
+          vz: isReduced ? 0 : (Math.random() - 0.5) * 0.2,
           radius: Math.random() * 2.2 + 1.2,
           cluster,
           baseAlpha: Math.random() * 0.45 + 0.35,
           pulseOffset: Math.random() * Math.PI * 2,
-          pulseSpeed: Math.random() * 0.02 + 0.015,
+          pulseSpeed: isReduced ? 0 : Math.random() * 0.02 + 0.015,
         });
       }
     };
@@ -120,10 +130,14 @@ export default function NetworkCanvas({
 
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
+
+      if (isReduced) {
+        render();
+      }
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!interactive || !canvas) return;
+      if (!interactive || !canvas || isReduced) return;
       const rect = canvas.getBoundingClientRect();
       const nx = (e.clientX - rect.left) / width - 0.5;
       const ny = (e.clientY - rect.top) / height - 0.5;
@@ -142,18 +156,47 @@ export default function NetworkCanvas({
     window.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseleave", handleMouseLeave);
 
+    const handleMotionChange = (e: MediaQueryListEvent) => {
+      isReduced = e.matches;
+      if (isReduced) {
+        cancelAnimationFrame(animationFrameId);
+        nodes.forEach((n) => {
+          n.vx = 0;
+          n.vy = 0;
+          n.vz = 0;
+        });
+        render();
+      } else {
+        nodes.forEach((n) => {
+          n.vx = (Math.random() - 0.5) * 0.25;
+          n.vy = (Math.random() - 0.5) * 0.25;
+          n.vz = (Math.random() - 0.5) * 0.2;
+        });
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+
+    motionQuery?.addEventListener("change", handleMotionChange);
+
     resize();
     initNodes();
 
     let time = 0;
 
     const render = () => {
-      time += 1;
+      if (!isReduced) {
+        time += 1;
+      }
       ctx.clearRect(0, 0, width, height);
 
-      // Interpolate mouse parallax
-      mouse.x += (mouse.targetX - mouse.x) * 0.06;
-      mouse.y += (mouse.targetY - mouse.y) * 0.06;
+      // Interpolate mouse parallax (skip if reduced motion)
+      if (!isReduced) {
+        mouse.x += (mouse.targetX - mouse.x) * 0.06;
+        mouse.y += (mouse.targetY - mouse.y) * 0.06;
+      } else {
+        mouse.x = 0;
+        mouse.y = 0;
+      }
 
       // Target camera based on progress (0 to 1)
       const p = Math.max(0, Math.min(1, progressRef.current));
@@ -183,10 +226,15 @@ export default function NetworkCanvas({
         targetZ = 460 + 320 * sub; // reaches ~780
       }
 
-      // Smooth camera lerp
-      camera.x += (targetX + mouse.x - camera.x) * 0.08;
-      camera.y += (targetY + mouse.y - camera.y) * 0.08;
-      camera.z += (targetZ - camera.z) * 0.08;
+      if (isReduced) {
+        camera.x = targetX;
+        camera.y = targetY;
+        camera.z = targetZ;
+      } else {
+        camera.x += (targetX + mouse.x - camera.x) * 0.08;
+        camera.y += (targetY + mouse.y - camera.y) * 0.08;
+        camera.z += (targetZ - camera.z) * 0.08;
+      }
 
       const cx = width / 2;
       const cy = height / 2;
@@ -207,10 +255,11 @@ export default function NetworkCanvas({
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
 
-        // Slight natural floating drift
-        n.x += n.vx;
-        n.y += n.vy;
-        n.z += n.vz;
+        if (!isReduced) {
+          n.x += n.vx;
+          n.y += n.vy;
+          n.z += n.vz;
+        }
 
         // Relative to camera
         const rx = n.x - camera.x;
@@ -235,9 +284,10 @@ export default function NetworkCanvas({
         const sx = cx + rx * scale;
         const sy = cy + ry * scale;
 
-        // Pulse
-        const pulse =
-          Math.sin(time * n.pulseSpeed + n.pulseOffset) * 0.25 + 0.75;
+        // Pulse (stable in reduced motion)
+        const pulse = isReduced
+          ? 0.85
+          : Math.sin(time * n.pulseSpeed + n.pulseOffset) * 0.25 + 0.75;
 
         // Depth fog attenuation
         const depthFog = Math.max(0, 1 - (rz - 60) / 1100);
@@ -306,15 +356,20 @@ export default function NetworkCanvas({
 
       ctx.shadowBlur = 0;
 
-      animationFrameId = requestAnimationFrame(render);
+      if (!isReduced) {
+        animationFrameId = requestAnimationFrame(render);
+      }
     };
 
+    renderRef.current = render;
     render();
 
     return () => {
+      renderRef.current = null;
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      motionQuery?.removeEventListener("change", handleMotionChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, [interactive]);

@@ -39,35 +39,43 @@ export default function WhatWeDoPreview() {
   ];
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let ctx: gsap.Context | null = null;
 
-    if (prefersReducedMotion) return;
+    const setupAnimation = () => {
+      if (ctx) ctx.revert();
+      if (mq.matches) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".what-we-do-card",
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".what-we-do-grid",
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-          clearProps: "transform",
-        }
-      );
-    }, containerRef);
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          ".what-we-do-card",
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".what-we-do-grid",
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+            clearProps: "transform",
+          }
+        );
+      }, containerRef);
+    };
 
-    return () => ctx.revert();
+    setupAnimation();
+    mq.addEventListener("change", setupAnimation);
+    return () => {
+      mq.removeEventListener("change", setupAnimation);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   return (

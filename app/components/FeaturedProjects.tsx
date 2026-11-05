@@ -10,35 +10,43 @@ export default function FeaturedProjects() {
   const featured = SAMPLE_PROJECTS.slice(0, 3);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let ctx: gsap.Context | null = null;
 
-    if (prefersReducedMotion) return;
+    const setupAnimation = () => {
+      if (ctx) ctx.revert();
+      if (mq.matches) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".featured-project-card",
-        { opacity: 0, y: 25 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".featured-projects-grid",
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-          clearProps: "transform",
-        }
-      );
-    }, containerRef);
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          ".featured-project-card",
+          { opacity: 0, y: 25 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".featured-projects-grid",
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+            clearProps: "transform",
+          }
+        );
+      }, containerRef);
+    };
 
-    return () => ctx.revert();
+    setupAnimation();
+    mq.addEventListener("change", setupAnimation);
+    return () => {
+      mq.removeEventListener("change", setupAnimation);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   return (
@@ -55,14 +63,16 @@ export default function FeaturedProjects() {
               <span className="h-1.5 w-4 bg-cyan-400 inline-block" />
               05 // STUDENT SOFTWARE & TOOLS
             </div>
+            <div className="mt-2 inline-flex items-center gap-2 rounded border border-amber-500/30 bg-amber-950/20 px-2 py-0.5 text-[10px] font-mono text-amber-300 uppercase tracking-wider">
+              <span>SAMPLE SHOWCASE // PROJECT BLUEPRINTS</span>
+            </div>
             <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase">
               Selected Projects
             </h2>
           </div>
           <div className="max-w-md">
             <p className="text-sm text-slate-300 font-light leading-relaxed">
-              Open-source software, research tools, and competition libraries engineered
-              and maintained by chapter students.
+              Illustrative project blueprints showcasing systems, research tooling, and competitive libraries developed by chapter students.
             </p>
           </div>
         </div>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 440" width="100%" height="100%">
+  <defs>
+    <linearGradient id="showcaseBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#030816"/>
+    </linearGradient>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091838" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#040b1a" stop-opacity="0.9"/>
+    </linearGradient>
+    <pattern id="cardGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#00f0ff" stroke-width="0.6" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+
+  <rect width="1100" height="440" rx="8" fill="url(#showcaseBg)" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.2"/>
+  <rect width="1100" height="440" rx="8" fill="url(#cardGrid)"/>
+
+  <!-- Top Title -->
+  <text x="32" y="34" font-family="'Geist Mono', monospace" font-size="10.5" font-weight="700" fill="#00f0ff" letter-spacing="1.5">INTERACTIVE UI SHOWCASE // CORE IMPLEMENTATIONS</text>
+  <text x="880" y="34" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">CLIENT COMPONENTS</text>
+  <line x1="32" y1="48" x2="1068" y2="48" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.12"/>
+
+  <!-- Showcase Cards: 2x2 Grid -->
+  <!-- 1. Hero 3D Engine -->
+  <g transform="translate(32, 64)">
+    <rect width="504" height="165" rx="6" fill="url(#cardGrad2)" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.25"/>
+    <rect x="0" y="0" width="4" height="165" rx="2" fill="#00f0ff"/>
+    
+    <text x="20" y="24" font-family="'Geist Mono', monospace" font-size="9.5" font-weight="700" fill="#38bdf8" letter-spacing="1">CANVAS ENGINE • GSAP SCRUB</text>
+    <text x="20" y="44" font-family="'Geist Mono', monospace" font-size="13" font-weight="800" fill="#ffffff">01 // 3D Perspective Network Simulation</text>
+    <text x="20" y="66" font-family="system-ui, sans-serif" font-size="10.5" fill="#cbd5e1">
+      Native HTML5 2D Canvas orchestrating 80 interactive nodes across 4 spatial clusters.
+    </text>
+    <text x="20" y="84" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">
+      Dynamically projects 3D coordinates (X, Y, Z) with distance-decaying alpha edges. Camera orientation lerps continuously with GSAP ScrollTrigger timeline.
+    </text>
+
+    <!-- Mini Visual Representation -->
+    <g transform="translate(20, 100)">
+      <rect width="464" height="48" rx="4" fill="#020510" stroke="#1e293b" stroke-width="0.8"/>
+      <circle cx="60" cy="24" r="3" fill="#00f0ff"/>
+      <circle cx="120" cy="16" r="4" fill="#38bdf8"/>
+      <circle cx="180" cy="32" r="3" fill="#00f0ff"/>
+      <circle cx="260" cy="20" r="5" fill="#ffffff"/>
+      <circle cx="340" cy="36" r="3" fill="#38bdf8"/>
+      <circle cx="410" cy="18" r="4" fill="#00f0ff"/>
+      <line x1="60" y1="24" x2="120" y2="16" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.6"/>
+      <line x1="120" y1="16" x2="180" y2="32" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.4"/>
+      <line x1="180" y1="32" x2="260" y2="20" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.7"/>
+      <line x1="260" y1="20" x2="340" y2="36" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.5"/>
+      <line x1="340" y1="36" x2="410" y2="18" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- 2. People & Team Dossier -->
+  <g transform="translate(564, 64)">
+    <rect width="504" height="165" rx="6" fill="url(#cardGrad2)" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.25"/>
+    <rect x="0" y="0" width="4" height="165" rx="2" fill="#38bdf8"/>
+
+    <text x="20" y="24" font-family="'Geist Mono', monospace" font-size="9.5" font-weight="700" fill="#38bdf8" letter-spacing="1">PEOPLE CONSTELLATION • MODAL DOSSIER</text>
+    <text x="20" y="44" font-family="'Geist Mono', monospace" font-size="13" font-weight="800" fill="#ffffff">02 // Student Organizers &amp; Alumni Profiles</text>
+    <text x="20" y="66" font-family="system-ui, sans-serif" font-size="10.5" fill="#cbd5e1">
+      Categorized roster spanning Executive Core, Technical Leads, Research &amp; Alumni.
+    </text>
+    <text x="20" y="84" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">
+      Clicking any node triggers an accessible modal dossier with academic focus, research areas, chapter duties, and verified communication links.
+    </text>
+
+    <!-- Mini Visual Representation -->
+    <g transform="translate(20, 100)">
+      <rect width="464" height="48" rx="4" fill="#020510" stroke="#1e293b" stroke-width="0.8"/>
+      <rect x="14" y="10" width="28" height="28" rx="14" fill="#00f0ff" fill-opacity="0.1" stroke="#00f0ff" stroke-width="1"/>
+      <text x="22" y="27" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#00f0ff">AS</text>
+      <text x="52" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#f8fafc">Aarav Sharma</text>
+      <text x="52" y="34" font-family="'Geist Mono', monospace" font-size="8.5" fill="#94a3b8">Chapter Chair • Distributed Systems</text>
+      
+      <rect x="250" y="14" width="75" height="20" rx="3" fill="#0f172a" stroke="#334155" stroke-width="0.8"/>
+      <text x="258" y="27" font-family="'Geist Mono', monospace" font-size="8.5" fill="#38bdf8">GitHub ↗</text>
+      <rect x="335" y="14" width="80" height="20" rx="3" fill="#0f172a" stroke="#334155" stroke-width="0.8"/>
+      <text x="343" y="27" font-family="'Geist Mono', monospace" font-size="8.5" fill="#60a5fa">LinkedIn ↗</text>
+      <rect x="424" y="14" width="28" height="20" rx="3" fill="#0f172a" stroke="#334155" stroke-width="0.8"/>
+      <text x="432" y="27" font-family="'Geist Mono', monospace" font-size="9" fill="#94a3b8">ESC</text>
+    </g>
+  </g>
+
+  <!-- 3. Events & Workshop Radar -->
+  <g transform="translate(32, 245)">
+    <rect width="504" height="165" rx="6" fill="url(#cardGrad2)" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.25"/>
+    <rect x="0" y="0" width="4" height="165" rx="2" fill="#4ade80"/>
+
+    <text x="20" y="24" font-family="'Geist Mono', monospace" font-size="9.5" font-weight="700" fill="#4ade80" letter-spacing="1">EVENT RADAR • SYLLABUS DOSSIER</text>
+    <text x="20" y="44" font-family="'Geist Mono', monospace" font-size="13" font-weight="800" fill="#ffffff">03 // Technical Events &amp; Photo Records</text>
+    <text x="20" y="66" font-family="system-ui, sans-serif" font-size="10.5" fill="#cbd5e1">
+      Calendar radar filtering upcoming symposiums, hackathons, and systems labs.
+    </text>
+    <text x="20" y="84" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">
+      Each event features concrete learning outcomes, prerequisites, mode (Hybrid/In-Person), speaker profiles, and photo records for past events.
+    </text>
+
+    <!-- Mini Visual Representation -->
+    <g transform="translate(20, 100)">
+      <rect width="464" height="48" rx="4" fill="#020510" stroke="#1e293b" stroke-width="0.8"/>
+      <rect x="14" y="10" width="56" height="28" rx="4" fill="#00f0ff" fill-opacity="0.1" stroke="#00f0ff" stroke-width="0.8"/>
+      <text x="20" y="22" font-family="'Geist Mono', monospace" font-size="8.5" font-weight="700" fill="#00f0ff">MAR 24</text>
+      <text x="20" y="32" font-family="'Geist Mono', monospace" font-size="7.5" fill="#94a3b8">2026</text>
+      <text x="80" y="22" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" fill="#f8fafc">Distributed Systems &amp; Consensus Symposium</text>
+      <text x="80" y="34" font-family="'Geist Mono', monospace" font-size="8.5" fill="#4ade80">● UPCOMING • HYBRID STREAM</text>
+    </g>
+  </g>
+
+  <!-- 4. Senior Review & Spec Drawer -->
+  <g transform="translate(564, 245)">
+    <rect width="504" height="165" rx="6" fill="url(#cardGrad2)" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.25"/>
+    <rect x="0" y="0" width="4" height="165" rx="2" fill="#a855f7"/>
+
+    <text x="20" y="24" font-family="'Geist Mono', monospace" font-size="9.5" font-weight="700" fill="#a855f7" letter-spacing="1">TRANSPARENCY • SENIOR REVIEW DRAWER</text>
+    <text x="20" y="44" font-family="'Geist Mono', monospace" font-size="13" font-weight="800" fill="#ffffff">04 // Built-in Presentation &amp; Spec Audit</text>
+    <text x="20" y="66" font-family="system-ui, sans-serif" font-size="10.5" fill="#cbd5e1">
+      Slideout technical walkthrough accessible from the navigation bar.
+    </text>
+    <text x="20" y="84" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">
+      Rigorously documents all 15 implemented sub-features, differentiating real interactive engines from structural placeholders until EC ratification.
+    </text>
+
+    <!-- Mini Visual Representation -->
+    <g transform="translate(20, 100)">
+      <rect width="464" height="48" rx="4" fill="#020510" stroke="#1e293b" stroke-width="0.8"/>
+      <rect x="14" y="14" width="160" height="20" rx="3" fill="#061c30" stroke="#00f0ff" stroke-width="0.8"/>
+      <text x="22" y="27" font-family="'Geist Mono', monospace" font-size="8.5" fill="#00f0ff">✓ 15 IMPLEMENTED MODULES</text>
+      <rect x="184" y="14" width="160" height="20" rx="3" fill="#201306" stroke="#f59e0b" stroke-width="0.8"/>
+      <text x="192" y="27" font-family="'Geist Mono', monospace" font-size="8.5" fill="#f59e0b">✦ HONEST PLACEHOLDERS</text>
+      <rect x="354" y="14" width="96" height="20" rx="3" fill="#140828" stroke="#a855f7" stroke-width="0.8"/>
+      <text x="362" y="27" font-family="'Geist Mono', monospace" font-size="8.5" fill="#c084fc">ROADMAP ↗</text>
+    </g>
+  </g>
+</svg>

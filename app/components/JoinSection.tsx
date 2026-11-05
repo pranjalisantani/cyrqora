@@ -1,10 +1,105 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function JoinSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const wasOpenRef = useRef(false);
+
+  const handleClose = () => {
+    setModalOpen(false);
+    setSubmitted(false);
+  };
+
+  useEffect(() => {
+    if (modalOpen) {
+      wasOpenRef.current = true;
+      document.body.style.overflow = "hidden";
+      const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable && focusable.length > 0) {
+        focusable[0].focus();
+      } else {
+        modalRef.current?.focus();
+      }
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          e.stopPropagation();
+          handleClose();
+          return;
+        }
+
+        if (e.key === "Tab") {
+          const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          );
+          if (!focusable || focusable.length === 0) {
+            e.preventDefault();
+            modalRef.current?.focus();
+            return;
+          }
+
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === first || !modalRef.current?.contains(document.activeElement)) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last || !modalRef.current?.contains(document.activeElement)) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [modalOpen]);
+
+  // When submitted state switches inside modal, focus the new primary action button
+  useEffect(() => {
+    if (modalOpen && submitted) {
+      const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable && focusable.length > 0) {
+        focusable[0].focus();
+      }
+    }
+  }, [modalOpen, submitted]);
+
+  // Handle focus restoration when modal closes
+  useEffect(() => {
+    if (!modalOpen && wasOpenRef.current) {
+      wasOpenRef.current = false;
+      document.body.style.overflow = "";
+      triggerRef.current?.focus();
+    }
+  }, [modalOpen]);
+
+  // Cleanup on unmount if open
+  useEffect(() => {
+    const trigger = triggerRef.current;
+    return () => {
+      if (wasOpenRef.current) {
+        document.body.style.overflow = "";
+        trigger?.focus();
+      }
+    };
+  }, []);
 
   const pillars = [
     { verb: "LEARN", desc: "Access high-caliber algorithmic curricula, systems labs, and masterclasses." },
@@ -56,6 +151,7 @@ export default function JoinSection() {
           {/* Action CTAs */}
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 font-mono text-xs uppercase tracking-widest">
             <button
+              ref={triggerRef}
               onClick={() => setModalOpen(true)}
               className="w-full sm:w-auto rounded-xl bg-cyan-400 px-8 py-4 font-bold text-slate-950 hover:bg-cyan-300 transition-all shadow-xl shadow-cyan-400/25 hover:shadow-cyan-300/40 hover:-translate-y-0.5 cursor-pointer"
             >
@@ -81,18 +177,32 @@ export default function JoinSection() {
         </div>
       </div>
 
-      {/* Application Placeholder Modal */}
+      {/* Application Prototype Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md">
-          <div className="fixed inset-0" onClick={() => setModalOpen(false)} />
-          <div className="relative z-10 max-w-lg w-full rounded-2xl border border-cyan-500/30 bg-[#040a18] p-6 sm:p-8 font-sans shadow-2xl">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="join-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md"
+        >
+          <div
+            className="fixed inset-0"
+            onClick={handleClose}
+            aria-label="Close modal backdrop"
+          />
+          <div
+            ref={modalRef}
+            tabIndex={-1}
+            className="relative z-10 max-w-lg w-full rounded-2xl border border-cyan-500/30 bg-[#040a18] p-6 sm:p-8 font-sans shadow-2xl focus:outline-none"
+          >
             <div className="flex items-center justify-between border-b border-cyan-500/20 pb-3">
-              <span className="font-mono text-xs text-cyan-400 uppercase tracking-wider">
-                CHAPTER MEMBERSHIP REGISTRATION
+              <span id="join-modal-title" className="font-mono text-xs text-cyan-400 uppercase tracking-wider">
+                CHAPTER MEMBERSHIP REGISTRATION [PROTOTYPE]
               </span>
               <button
-                onClick={() => setModalOpen(false)}
+                onClick={handleClose}
                 className="text-slate-400 hover:text-white font-mono cursor-pointer"
+                aria-label="Close registration form"
               >
                 ✕
               </button>
@@ -108,10 +218,7 @@ export default function JoinSection() {
                   In production, this submission routes into the official ACM chapter onboarding workflow and Google Forms registration pipeline.
                 </p>
                 <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setModalOpen(false);
-                  }}
+                  onClick={handleClose}
                   className="mt-4 rounded bg-cyan-400 px-4 py-2 font-mono text-xs font-bold text-slate-950"
                 >
                   Close Confirmation
@@ -160,7 +267,7 @@ export default function JoinSection() {
 
                 <div className="pt-2 flex justify-end gap-2">
                   <button
-                    onClick={() => setModalOpen(false)}
+                    onClick={handleClose}
                     className="rounded border border-slate-800 px-4 py-2 text-slate-400 hover:text-white"
                   >
                     Cancel
