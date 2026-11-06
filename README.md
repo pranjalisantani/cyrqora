@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./docs/assets/hero-banner.svg" alt="ACM FACE Prototype Banner" width="100%" />
+<img src="./docs/assets/hero-banner.svg" alt="CYRQORA Digital Experience Prototype Banner" width="100%" />
 
 <br />
 
@@ -12,7 +12,7 @@
 
 <br />
 
-**CYRQORA // ACM FACE Digital Experience Prototype**<br />
+**CYRQORA // Digital Experience Prototype**<br />
 *An independent digital-platform prototype exploring modern web architecture, interactive graphics, and narrative community storytelling for computing students.*
 
 </div>
@@ -20,7 +20,7 @@
 <br />
 
 > [!NOTE]
-> **Independent Prototype Notice**: This project is an independent engineering exploration and conceptual digital prototype. It is not an official publication of, owned by, or authorized by the global Association for Computing Machinery (ACM). All trademarks belong to their respective holders.
+> **Independent Prototype Notice**: This project is an independent engineering exploration and conceptual digital prototype. It is not an official publication of, owned by, or authorized by any external organization. All trademarks belong to their respective holders.
 
 ---
 
@@ -114,4 +114,4 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 **CYRQORA** is an independent digital-platform prototype developed by [Pranjali Santani](https://github.com/pranjalisantani) to explore accessible community web architecture.
 
-*Association for Computing Machinery, ACM, and the ACM logo are registered trademarks of the Association for Computing Machinery, Inc. This project is an independent educational and architectural prototype. It is not affiliated with, sponsored by, or endorsed by the Association for Computing Machinery.*
+*This project is an independent educational and architectural prototype. All product names, logos, and brands are property of their respective owners.*
