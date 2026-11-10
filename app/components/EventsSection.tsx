@@ -296,9 +296,9 @@ export default function EventsSection({ onSelectEvent }: EventsSectionProps) {
                   {isPast && event.photos && event.photos.length > 0 && (
                     <div className="mt-4 pt-3 border-t border-cyan-500/10">
                       <div className="text-[10px] font-mono uppercase text-slate-400 mb-2 flex items-center justify-between">
-                        <span>Captured Event Photos</span>
+                        <span>Session Visual Archive (Sample)</span>
                         <span className="text-cyan-400 font-medium">
-                          {event.photos.length} photos
+                          {event.photos.length} records
                         </span>
                       </div>
                       <div className="grid grid-cols-3 gap-1.5">
@@ -319,7 +319,7 @@ export default function EventsSection({ onSelectEvent }: EventsSectionProps) {
                 <div className="mt-6 pt-4 border-t border-cyan-500/10 flex items-center justify-between font-mono text-xs">
                   {isPast ? (
                     <span className="text-cyan-300 font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                      <span>View Summary & Photos</span>
+                      <span>View Summary & Archive</span>
                       <span>→</span>
                     </span>
                   ) : (

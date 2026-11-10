@@ -137,7 +137,7 @@ export default function Footer() {
           {/* Col 5: Affiliation */}
           <div className="space-y-3">
             <h4 className="text-white font-bold uppercase tracking-wider text-xs">
-              OFFICIAL ACM
+              ACM GLOBAL RESOURCES
             </h4>
             <ul className="space-y-2 text-[11px]">
               <li>

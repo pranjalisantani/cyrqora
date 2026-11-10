@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="100%" height="100%">
+  <title>ACM FACE - Independent Digital Platform Prototype Banner</title>
+  <desc>Banner graphic showcasing the cyber-editorial dark visual identity, typography, and technical stack badges.</desc>
   <defs>
     <!-- Background Gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -59,9 +61,9 @@
   <circle cx="50" cy="44" r="4" fill="#00f0ff"/>
   <circle cx="50" cy="44" r="7" fill="none" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.5"/>
   <text x="68" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#38bdf8" letter-spacing="2">ACM 2026 // STUDENT CHAPTER DIGITAL EXPERIENCE</text>
-  <text x="960" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="10" font-weight="500" fill="#64748b" letter-spacing="1.5">SYS: PRODUCTION CANDIDATE v0.1</text>
-  <rect x="1108" y="38" width="48" height="14" rx="3" fill="#00f0ff" fill-opacity="0.1" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.4"/>
-  <text x="1122" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="9" font-weight="700" fill="#00f0ff">ACTIVE</text>
+  <text x="960" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="10" font-weight="500" fill="#64748b" letter-spacing="1.5">SYS: INDEPENDENT PROTOTYPE</text>
+  <rect x="1118" y="38" width="48" height="14" rx="3" fill="#00f0ff" fill-opacity="0.1" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.4"/>
+  <text x="1126" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="9" font-weight="700" fill="#00f0ff">ACTIVE</text>
 
   <!-- Ambient Geometric Polygon / Emblem (Left Side) -->
   <g transform="translate(140, 220)">
@@ -91,7 +93,7 @@
   <!-- Central Visual Hierarchy & Copy -->
   <g transform="translate(320, 120)">
     <!-- Chapter Category Badge -->
-    <rect x="0" y="0" width="220" height="24" rx="4" fill="#00f0ff" fill-opacity="0.08" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.3"/>
+    <rect x="0" y="0" width="295" height="24" rx="4" fill="#00f0ff" fill-opacity="0.08" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.3"/>
     <circle cx="12" cy="12" r="3" fill="#00f0ff"/>
     <text x="24" y="16" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="10.5" font-weight="600" fill="#00f0ff" letter-spacing="1.5">ASSOCIATION FOR COMPUTING MACHINERY</text>
 
@@ -140,15 +142,15 @@
       <!-- Badge 6: HTML5 3D Canvas -->
       <g transform="translate(666, 0)">
         <rect width="136" height="26" rx="5" fill="#06182c" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.4"/>
-        <text x="12" y="17" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#00f0ff">⬡ 60 FPS Canvas</text>
+        <text x="12" y="17" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#00f0ff">⬡ HTML5 Canvas</text>
       </g>
     </g>
   </g>
 
   <!-- Bottom Coordinates & Metric Indicators -->
   <line x1="24" y1="366" x2="1176" y2="366" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.12"/>
-  <text x="44" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">LATENCY: 0.0ms [CLIENT RENDERING]</text>
-  <text x="340" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">CANVAS NODES: 80 PARTICLES • 4 CLUSTERS</text>
-  <text x="730" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">INTERACTIONS: 15 MODULAR TOUCHPOINTS</text>
-  <text x="1060" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#38bdf8" letter-spacing="1">STATUS: READY</text>
+  <text x="44" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">CLIENT RENDERING // ACTIVE RUNTIME</text>
+  <text x="340" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">CANVAS ENGINE: PERSPECTIVE PROJECTION</text>
+  <text x="730" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">INTERACTIONS: MODULAR TOUCHPOINTS</text>
+  <text x="1060" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#38bdf8" letter-spacing="1">STATUS: PROTOTYPE READY</text>
 </svg>

@@ -109,7 +109,7 @@ export default function ReviewDrawer({ isOpen, onClose }: ReviewDrawerProps) {
     { num: "06", name: "4 Chapter Growth Pillars", status: "Workshops, Projects, Papers, Contests" },
     { num: "07", name: "Selected Student Software", status: "Curated Tools & Blueprints" },
     { num: "08", name: "Membership Intake Portal", status: "The 4 Verbs & Prototype Modal" },
-    { num: "09", name: "Production Footer Directory", status: "Official Global ACM Affiliations" },
+    { num: "09", name: "Footer Directory", status: "Global ACM Resources" },
     { num: "10", name: "Senior Review & Spec Drawer", status: "Integrated Architecture Audit" },
   ];
 
@@ -236,7 +236,7 @@ export default function ReviewDrawer({ isOpen, onClose }: ReviewDrawerProps) {
 
         {/* Footer */}
         <div className="mt-auto border-t border-cyan-500/20 pt-4 flex justify-between items-center text-xs font-mono text-slate-400">
-          <span>ACM 2026 DIGITAL EXPERIENCE</span>
+          <span>ACM FACE // PROTOTYPE EXPERIENCE</span>
           <button
             onClick={onClose}
             className="rounded bg-cyan-500/20 px-4 py-2 text-cyan-300 hover:bg-cyan-500/30 transition-colors cursor-pointer"
