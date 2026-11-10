@@ -31,13 +31,13 @@ export default function Navbar({ onOpenSpecs }: NavbarProps) {
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? "bg-[#030712]/92 backdrop-blur-xl border-b border-cyan-500/20 py-3 shadow-lg shadow-black/60"
-          : "bg-transparent py-5 border-b border-cyan-500/10"
+          ? "bg-[#030712]/95 backdrop-blur-xl border-b border-cyan-500/20 py-3 shadow-lg shadow-black/60"
+          : "bg-[#030712]/90 backdrop-blur-xl py-4 border-b border-cyan-500/15"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* ACM Brand Identity */}
-        <a href="#hero" className="flex items-center gap-3 group">
+        <a href="#hero" className="flex items-center gap-3 group shrink-0">
           <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-cyan-400/40 bg-cyan-950/30 text-cyan-300 shadow-sm shadow-cyan-500/20 group-hover:border-cyan-400 group-hover:shadow-cyan-400/30 transition-all">
             <svg
               className="h-6 w-6 text-cyan-400 group-hover:text-cyan-300 transition-colors"
