@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="100%" height="100%">
-  <title>ACM FACE - Independent Digital Platform Prototype Banner</title>
+  <title>CYRQORA - Independent Digital Platform Prototype Banner</title>
   <desc>Banner graphic showcasing the cyber-editorial dark visual identity, typography, and technical stack badges.</desc>
   <defs>
     <!-- Background Gradient -->
@@ -60,7 +60,7 @@
   <line x1="24" y1="64" x2="1176" y2="64" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.15"/>
   <circle cx="50" cy="44" r="4" fill="#00f0ff"/>
   <circle cx="50" cy="44" r="7" fill="none" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.5"/>
-  <text x="68" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#38bdf8" letter-spacing="2">ACM 2026 // STUDENT CHAPTER DIGITAL EXPERIENCE</text>
+  <text x="68" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#38bdf8" letter-spacing="2">CYRQORA</text>
   <text x="960" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="10" font-weight="500" fill="#64748b" letter-spacing="1.5">SYS: INDEPENDENT PROTOTYPE</text>
   <rect x="1118" y="38" width="48" height="14" rx="3" fill="#00f0ff" fill-opacity="0.1" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.4"/>
   <text x="1126" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="9" font-weight="700" fill="#00f0ff">ACTIVE</text>
@@ -92,13 +92,13 @@
 
   <!-- Central Visual Hierarchy & Copy -->
   <g transform="translate(320, 120)">
-    <!-- Chapter Category Badge -->
-    <rect x="0" y="0" width="295" height="24" rx="4" fill="#00f0ff" fill-opacity="0.08" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.3"/>
+    <!-- Category Badge -->
+    <rect x="0" y="0" width="96" height="24" rx="4" fill="#00f0ff" fill-opacity="0.08" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.3"/>
     <circle cx="12" cy="12" r="3" fill="#00f0ff"/>
-    <text x="24" y="16" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="10.5" font-weight="600" fill="#00f0ff" letter-spacing="1.5">ASSOCIATION FOR COMPUTING MACHINERY</text>
+    <text x="24" y="16" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="10.5" font-weight="600" fill="#00f0ff" letter-spacing="1.5">CYRQORA</text>
 
     <!-- Main Title -->
-    <text x="0" y="78" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="900" fill="url(#titleGrad)" letter-spacing="-1">ACM 2026</text>
+    <text x="0" y="78" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="900" fill="url(#titleGrad)" letter-spacing="-1">CYRQORA</text>
     <text x="360" y="78" font-family="'Geist Mono', monospace" font-size="28" font-weight="700" fill="#00f0ff" opacity="0.9" letter-spacing="2">// DIGITAL EXPERIENCE</text>
 
     <!-- Editorial Subtitle -->
