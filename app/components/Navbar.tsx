@@ -71,19 +71,9 @@ export default function Navbar({ onOpenSpecs }: NavbarProps) {
             </svg>
             <div className="absolute -inset-0.5 rounded-lg bg-cyan-500/10 blur-sm -z-10 group-hover:bg-cyan-500/20 transition-all" />
           </div>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-base font-extrabold tracking-wider text-white">
-                ACM <span className="text-cyan-400 font-bold">FACE</span>
-              </span>
-              <span className="rounded border border-cyan-500/30 bg-cyan-500/10 px-1.5 py-0.2 text-[9px] font-mono uppercase tracking-widest text-cyan-300">
-                2026
-              </span>
-            </div>
-            <span className="text-[10px] font-mono text-slate-400 tracking-wider hidden sm:inline">
-              ASSOCIATION FOR COMPUTING MACHINERY
-            </span>
-          </div>
+          <span className="font-mono text-base font-extrabold tracking-wider text-white">
+            CYR<span className="text-cyan-400 font-bold">QORA</span>
+          </span>
         </a>
 
         {/* Desktop Navigation Links */}
