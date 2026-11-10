@@ -189,14 +189,17 @@ export default function EventsSection({ onSelectEvent }: EventsSectionProps) {
               <span className="h-1.5 w-4 bg-cyan-400 inline-block" />
               03 // CHAPTER EVENTS & CALENDAR
             </div>
+            <div className="mt-2 inline-flex items-center gap-2 rounded border border-amber-500/30 bg-amber-950/20 px-2 py-0.5 text-[10px] font-mono text-amber-300 uppercase tracking-wider">
+              <span>DEMO SCHEDULE // SAMPLE CHAPTER EVENTS</span>
+            </div>
             <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase">
               Events & Workshops
             </h2>
           </div>
           <div className="max-w-md">
             <p className="text-sm text-slate-300 font-light leading-relaxed">
-              Hands-on technical workshops, symposia, and hackathons. Structured with complete details,
-              registration access, and embedded event photo archives.
+              Curated sample schedule demonstrating event structure, syllabi, and technical formats.
+              Official dates, venues, and registration links will be published upon chapter schedule confirmation.
             </p>
           </div>
         </div>
@@ -225,8 +228,18 @@ export default function EventsSection({ onSelectEvent }: EventsSectionProps) {
             return (
               <div
                 key={event.id}
+                role="button"
+                tabIndex={0}
+                aria-label={`View details for ${event.title}`}
                 onClick={() => onSelectEvent(event)}
-                className={`group glass-panel glass-panel-hover corner-crosshair rounded-2xl border p-6 flex flex-col justify-between transition-all duration-300 cursor-pointer ${
+                onKeyDown={(e) => {
+                  if (e.target !== e.currentTarget) return;
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onSelectEvent(event);
+                  }
+                }}
+                className={`group glass-panel glass-panel-hover corner-crosshair rounded-2xl border p-6 flex flex-col justify-between transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
                   isPast
                     ? "border-slate-800 bg-[#040816]/80 hover:border-cyan-500/50"
                     : "border-cyan-500/25 bg-[#030919]/90 hover:border-cyan-400/60 shadow-lg shadow-cyan-950/20"
@@ -311,11 +324,11 @@ export default function EventsSection({ onSelectEvent }: EventsSectionProps) {
                     </span>
                   ) : (
                     <span className="text-cyan-400 font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                      <span>Register / View Details</span>
-                      <span>↗</span>
+                      <span>View Session Details</span>
+                      <span>→</span>
                     </span>
                   )}
-                  <span className="text-[11px] text-slate-400">Details</span>
+                  <span className="text-[11px] text-slate-400">Sample Preview</span>
                 </div>
               </div>
             );

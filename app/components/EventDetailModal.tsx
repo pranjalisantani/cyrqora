@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export interface EventPhoto {
   caption: string;
@@ -38,28 +38,109 @@ interface EventDetailModalProps {
 }
 
 export default function EventDetailModal({ event, onClose }: EventDetailModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const wasOpenRef = useRef(false);
+  const onCloseRef = useRef(onClose);
+
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    if (event) {
+    onCloseRef.current = onClose;
+  });
+
+  const isOpen = Boolean(event);
+
+  useEffect(() => {
+    if (isOpen) {
+      if (!wasOpenRef.current) {
+        previousFocusRef.current = document.activeElement as HTMLElement | null;
+        wasOpenRef.current = true;
+      }
       document.body.style.overflow = "hidden";
+
+      // Move focus into the modal
+      const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable && focusable.length > 0) {
+        focusable[0].focus();
+      } else {
+        modalRef.current?.focus();
+      }
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          e.stopPropagation();
+          onCloseRef.current();
+          return;
+        }
+
+        if (e.key === "Tab") {
+          const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          );
+          if (!focusable || focusable.length === 0) {
+            e.preventDefault();
+            modalRef.current?.focus();
+            return;
+          }
+
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === first || !modalRef.current?.contains(document.activeElement)) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last || !modalRef.current?.contains(document.activeElement)) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
+      };
+
       window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "";
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
     }
-    return () => {
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen && wasOpenRef.current) {
+      wasOpenRef.current = false;
       document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
+      if (previousFocusRef.current && typeof previousFocusRef.current.focus === "function") {
+        previousFocusRef.current.focus();
+      }
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (wasOpenRef.current) {
+        document.body.style.overflow = "";
+        if (previousFocusRef.current && typeof previousFocusRef.current.focus === "function") {
+          previousFocusRef.current.focus();
+        }
+      }
     };
-  }, [event, onClose]);
+  }, []);
 
   if (!event) return null;
 
   const isPast = event.status === "Past Event";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="event-modal-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10"
+    >
       {/* Dark backdrop with blur */}
       <div
         className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity"
@@ -68,17 +149,24 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
       />
 
       {/* Modal Container */}
-      <div className="relative z-10 flex max-h-[90vh] w-full max-w-2xl flex-col rounded-2xl border border-cyan-500/30 bg-[#040a18]/95 p-6 sm:p-8 shadow-2xl shadow-black overflow-y-auto font-sans">
+      <div
+        ref={modalRef}
+        tabIndex={-1}
+        className="relative z-10 flex max-h-[90vh] w-full max-w-2xl flex-col rounded-2xl border border-cyan-500/30 bg-[#040a18]/95 p-6 sm:p-8 shadow-2xl shadow-black overflow-y-auto font-sans focus:outline-none"
+      >
         {/* Top bar with category & close */}
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-4">
           <div className="flex items-center gap-2 font-mono text-xs text-cyan-400">
             <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
             <span className="uppercase tracking-widest">{event.category} EVENT</span>
+            <span className="rounded bg-amber-500/10 border border-amber-400/30 px-1.5 py-0.5 text-[10px] text-amber-300 font-mono">
+              SAMPLE RECORD
+            </span>
           </div>
           <button
             onClick={onClose}
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 hover:bg-cyan-900/60 transition-colors cursor-pointer"
-            aria-label="Close modal"
+            aria-label="Close event details"
           >
             ✕
           </button>
@@ -91,9 +179,12 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
           <div className="absolute inset-0 tech-grid-dense opacity-25 pointer-events-none" />
           <div className="relative z-10">
             <span className="inline-block rounded border border-cyan-400/40 bg-black/60 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-cyan-300 backdrop-blur-sm">
-              ACM STUDENT CHAPTER // 2026
+              ACM STUDENT CHAPTER // SAMPLE EVENT SPECIFICATION
             </span>
-            <h2 className="mt-2 text-xl sm:text-2xl font-black uppercase tracking-tight text-white drop-shadow-md">
+            <h2
+              id="event-modal-title"
+              className="mt-2 text-xl sm:text-2xl font-black uppercase tracking-tight text-white drop-shadow-md"
+            >
               {event.title}
             </h2>
           </div>
@@ -117,10 +208,10 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
             <span className="text-[10px] uppercase tracking-wider text-slate-400 block">Status</span>
             <span
               className={`font-semibold mt-0.5 block ${
-                isPast ? "text-slate-400" : "text-emerald-400"
+                isPast ? "text-slate-400" : "text-cyan-300"
               }`}
             >
-              {event.status}
+              {isPast ? "Past Session (Sample)" : "Sample Session Preview"}
             </span>
           </div>
         </div>
@@ -177,30 +268,32 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
 
         {/* Registration Action (if upcoming) */}
         {!isPast ? (
-          <div className="mt-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-950/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="mt-6 p-4 rounded-xl border border-cyan-500/20 bg-cyan-950/20 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <div className="font-mono text-xs font-bold text-white">
-                Registration Open
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs font-bold text-white">
+                  Registration Status
+                </span>
+                <span className="rounded bg-amber-500/10 border border-amber-400/30 px-1.5 py-0.5 font-mono text-[9px] text-amber-300 uppercase">
+                  Pending Schedule Confirmation
+                </span>
               </div>
-              <div className="text-xs text-slate-300 font-light mt-0.5">
-                Free for all university students. Limited seating for lab workshops.
+              <div className="text-xs text-slate-300 font-light mt-1">
+                Event details and curriculum shown are illustrative previews. Official registration links and venue access will be announced once scheduled.
               </div>
             </div>
-            <button
-              onClick={() => alert("Registration interface link placeholder. In production, this directs to the ACM Event Registration Portal / Google Forms / Devfolio.")}
-              className="w-full sm:w-auto rounded-lg bg-cyan-400 px-6 py-2.5 font-mono text-xs font-bold text-slate-950 hover:bg-cyan-300 transition-colors shadow-md shadow-cyan-400/25 cursor-pointer whitespace-nowrap"
-            >
-              Register on Portal ↗
-            </button>
+            <div className="w-full sm:w-auto rounded-lg border border-slate-700 bg-slate-900/60 px-5 py-2.5 font-mono text-xs text-slate-400 text-center whitespace-nowrap">
+              Portal Link Pending
+            </div>
           </div>
         ) : (
           <div className="mt-6 p-3 rounded-lg border border-slate-800 bg-[#030712] font-mono text-xs text-slate-400 flex items-center justify-between">
-            <span>SESSION COMPLETED</span>
-            <span className="text-cyan-300">View Event Gallery Below ↓</span>
+            <span>SESSION COMPLETED (ARCHIVE SAMPLE)</span>
+            <span className="text-cyan-300">View Reference Gallery Below ↓</span>
           </div>
         )}
 
-        {/* Event-Owned Photo Gallery (Flow: DETAILS -> REGISTRATION -> EVENT PHOTOS) */}
+        {/* Event-Owned Photo Gallery */}
         <div className="mt-8 pt-6 border-t border-cyan-500/20">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-mono text-xs uppercase tracking-wider text-cyan-400 flex items-center gap-2">
@@ -239,7 +332,7 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
 
         {/* Modal Footer */}
         <div className="mt-6 pt-4 border-t border-cyan-500/20 flex items-center justify-between font-mono text-xs text-slate-400">
-          <span>ACM FACE 2026 // EVENTS</span>
+          <span>ACM STUDENT CHAPTER // SAMPLE EVENT DOSSIER</span>
           <button
             onClick={onClose}
             className="rounded border border-slate-700 bg-slate-900/60 px-4 py-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"

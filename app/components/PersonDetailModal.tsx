@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export interface ACMMember {
   id: string;
@@ -27,28 +27,109 @@ interface PersonDetailModalProps {
 }
 
 export default function PersonDetailModal({ person, onClose }: PersonDetailModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const wasOpenRef = useRef(false);
+  const onCloseRef = useRef(onClose);
+
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    if (person) {
+    onCloseRef.current = onClose;
+  });
+
+  const isOpen = Boolean(person);
+
+  useEffect(() => {
+    if (isOpen) {
+      if (!wasOpenRef.current) {
+        previousFocusRef.current = document.activeElement as HTMLElement | null;
+        wasOpenRef.current = true;
+      }
       document.body.style.overflow = "hidden";
+
+      // Move focus into the modal
+      const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable && focusable.length > 0) {
+        focusable[0].focus();
+      } else {
+        modalRef.current?.focus();
+      }
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          e.stopPropagation();
+          onCloseRef.current();
+          return;
+        }
+
+        if (e.key === "Tab") {
+          const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          );
+          if (!focusable || focusable.length === 0) {
+            e.preventDefault();
+            modalRef.current?.focus();
+            return;
+          }
+
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === first || !modalRef.current?.contains(document.activeElement)) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last || !modalRef.current?.contains(document.activeElement)) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
+      };
+
       window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "";
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
     }
-    return () => {
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen && wasOpenRef.current) {
+      wasOpenRef.current = false;
       document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
+      if (previousFocusRef.current && typeof previousFocusRef.current.focus === "function") {
+        previousFocusRef.current.focus();
+      }
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (wasOpenRef.current) {
+        document.body.style.overflow = "";
+        if (previousFocusRef.current && typeof previousFocusRef.current.focus === "function") {
+          previousFocusRef.current.focus();
+        }
+      }
     };
-  }, [person, onClose]);
+  }, []);
 
   if (!person) return null;
 
   const hasSocials = Boolean(person.githubUrl || person.linkedinUrl || person.portfolioUrl);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="person-modal-name"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10"
+    >
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"
@@ -57,7 +138,11 @@ export default function PersonDetailModal({ person, onClose }: PersonDetailModal
       />
 
       {/* Profile Card Modal */}
-      <div className="relative z-10 flex max-h-[90vh] w-full max-w-xl flex-col rounded-2xl border border-cyan-500/30 bg-[#040a18]/95 p-6 sm:p-8 shadow-2xl shadow-black overflow-y-auto font-sans">
+      <div
+        ref={modalRef}
+        tabIndex={-1}
+        className="relative z-10 flex max-h-[90vh] w-full max-w-xl flex-col rounded-2xl border border-cyan-500/30 bg-[#040a18]/95 p-6 sm:p-8 shadow-2xl shadow-black overflow-y-auto font-sans focus:outline-none"
+      >
         {/* Header bar */}
         <div className="flex items-center justify-between border-b border-cyan-500/20 pb-4">
           <div className="flex items-center gap-2 font-mono text-xs text-cyan-400">
@@ -65,11 +150,14 @@ export default function PersonDetailModal({ person, onClose }: PersonDetailModal
             <span className="uppercase tracking-widest">
               {person.isAlumni ? "ACM ALUMNI" : person.category}
             </span>
+            <span className="rounded bg-amber-500/10 border border-amber-400/30 px-1.5 py-0.5 text-[10px] text-amber-300 font-mono">
+              SAMPLE PROFILE
+            </span>
           </div>
           <button
             onClick={onClose}
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 hover:bg-cyan-900/60 transition-colors cursor-pointer"
-            aria-label="Close modal"
+            aria-label={`Close ${person.name} profile`}
           >
             ✕
           </button>
@@ -105,7 +193,7 @@ export default function PersonDetailModal({ person, onClose }: PersonDetailModal
 
           <div className="text-center sm:text-left flex-1">
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-              <h2 className="text-2xl font-extrabold tracking-tight text-white">
+              <h2 id="person-modal-name" className="text-2xl font-extrabold tracking-tight text-white">
                 {person.name}
               </h2>
               {person.isAlumni && (
@@ -170,11 +258,16 @@ export default function PersonDetailModal({ person, onClose }: PersonDetailModal
           </div>
         </div>
 
-        {/* Verified Social Links (Rendered ONLY when genuine URLs exist) */}
+        {/* Social / Portfolio Links */}
         {hasSocials && (
           <div className="mt-6 rounded-xl border border-slate-800 bg-[#030712] p-4 font-mono text-xs">
-            <div className="text-[10px] uppercase text-slate-400 tracking-wider mb-2">
-              Verified Profiles
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-[10px] uppercase text-slate-400 tracking-wider">
+                External Profiles
+              </div>
+              <span className="text-[10px] text-amber-300/80 font-mono">
+                Sample Links
+              </span>
             </div>
             <div className="flex flex-wrap gap-3">
               {person.githubUrl && (
@@ -216,7 +309,7 @@ export default function PersonDetailModal({ person, onClose }: PersonDetailModal
 
         {/* Footer */}
         <div className="mt-6 pt-4 border-t border-cyan-500/20 flex items-center justify-between font-mono text-xs text-slate-400">
-          <span>ACM STUDENT CHAPTER</span>
+          <span>ACM STUDENT CHAPTER // SAMPLE PROFILE</span>
           <button
             onClick={onClose}
             className="rounded bg-cyan-500/20 px-4 py-2 text-cyan-300 hover:bg-cyan-500/30 transition-colors cursor-pointer"

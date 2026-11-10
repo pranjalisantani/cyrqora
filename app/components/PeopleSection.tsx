@@ -173,14 +173,17 @@ export default function PeopleSection({ onSelectPerson }: PeopleSectionProps) {
               <span className="h-1.5 w-4 bg-cyan-400 inline-block" />
               02 // CHAPTER LEADERSHIP & MEMBERS
             </div>
+            <div className="mt-2 inline-flex items-center gap-2 rounded border border-amber-500/30 bg-amber-950/20 px-2 py-0.5 text-[10px] font-mono text-amber-300 uppercase tracking-wider">
+              <span>DEMO ROSTER // SAMPLE CHAPTER PROFILES</span>
+            </div>
             <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase">
               People & Team
             </h2>
           </div>
           <div className="max-w-md">
             <p className="text-sm text-slate-300 font-light leading-relaxed">
-              Meet the student organizers, technical leads, and alumni guiding our ACM chapter
-              initiatives, workshops, and student mentorship.
+              Sample chapter roster illustrating organizational structure, technical leads, and alumni mentorship.
+              Official executive roster will be published upon chapter election ratification.
             </p>
           </div>
         </div>
@@ -208,8 +211,18 @@ export default function PeopleSection({ onSelectPerson }: PeopleSectionProps) {
             return (
               <div
                 key={person.id}
+                role="button"
+                tabIndex={0}
+                aria-label={`View profile for ${person.name}, ${person.role}`}
                 onClick={() => onSelectPerson(person)}
-                className={`group relative rounded-2xl border p-6 transition-all duration-300 flex flex-col justify-between cursor-pointer ${
+                onKeyDown={(e) => {
+                  if (e.target !== e.currentTarget) return;
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onSelectPerson(person);
+                  }
+                }}
+                className={`group relative rounded-2xl border p-6 transition-all duration-300 flex flex-col justify-between cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400 ${
                   person.isAlumni
                     ? "border-amber-500/25 bg-[#060a15] hover:border-amber-400/60 shadow-lg shadow-black/40"
                     : "border-cyan-500/20 bg-[#040a18]/70 hover:border-cyan-400/60 hover:bg-cyan-950/30 shadow-lg shadow-cyan-950/15"

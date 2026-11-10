@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 280" width="100%" height="100%">
+  <defs>
+    <linearGradient id="flowBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#040b19"/>
+    </linearGradient>
+    <linearGradient id="beatGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#07152f"/>
+      <stop offset="100%" stop-color="#020712"/>
+    </linearGradient>
+    <pattern id="flowGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#00f0ff" stroke-width="0.7" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+
+  <rect width="1100" height="280" rx="8" fill="url(#flowBg)" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.18"/>
+  <rect width="1100" height="280" rx="8" fill="url(#flowGrid)"/>
+
+  <!-- Top Title -->
+  <text x="32" y="36" font-family="'Geist Mono', monospace" font-size="10.5" font-weight="700" fill="#00f0ff" letter-spacing="1.5">CONTINUOUS SCROLL NARRATIVE // GSAP PINNED TIMELINE</text>
+  <text x="860" y="36" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">SCRUB RATIO: 1.1 • 3600PX TRACK</text>
+  <line x1="32" y1="50" x2="1068" y2="50" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.12"/>
+
+  <!-- Timeline Steps: 4 Sequence Columns -->
+  <!-- Step 0: Hero Entry -->
+  <g transform="translate(32, 68)">
+    <rect width="235" height="180" rx="6" fill="url(#beatGrad)" stroke="#1e293b" stroke-width="1"/>
+    <rect x="0" y="0" width="235" height="4" rx="2" fill="#64748b"/>
+    <text x="16" y="26" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#94a3b8">PROGRESS 0.00 - 0.25</text>
+    <text x="16" y="48" font-family="'Geist Mono', monospace" font-size="13" font-weight="800" fill="#ffffff">00 // MONUMENTAL HERO</text>
+    <text x="16" y="72" font-family="system-ui, sans-serif" font-size="10.5" fill="#cbd5e1">Camera enters 3D particle mesh.</text>
+    <text x="16" y="90" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">Displays primary chapter manifesto &amp; real-time telemetry readout.</text>
+    <rect x="16" y="142" width="90" height="18" rx="3" fill="#0f172a" stroke="#334155" stroke-width="0.8"/>
+    <text x="24" y="155" font-family="'Geist Mono', monospace" font-size="8.5" fill="#94a3b8">Active: Top Title</text>
+  </g>
+
+  <!-- Step 1: Beat 1 Foundation -->
+  <g transform="translate(295, 68)">
+    <rect width="235" height="180" rx="6" fill="url(#beatGrad)" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.3"/>
+    <rect x="0" y="0" width="235" height="4" rx="2" fill="#00f0ff"/>
+    <text x="16" y="26" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#00f0ff">PROGRESS 0.25 - 0.52</text>
+    <text x="16" y="48" font-family="'Geist Mono', monospace" font-size="13" font-weight="800" fill="#ffffff">01 // FOUNDATION</text>
+    <text x="16" y="72" font-family="system-ui, sans-serif" font-size="10.5" fill="#cbd5e1">Camera zooms into Cluster 1.</text>
+    <text x="16" y="90" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">Charter principles, peer review pedigree &amp; scientific rigor emphasis.</text>
+    <rect x="16" y="142" width="105" height="18" rx="3" fill="#061a30" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.4"/>
+    <text x="24" y="155" font-family="'Geist Mono', monospace" font-size="8.5" fill="#00f0ff">Cluster: Foundation</text>
+  </g>
+
+  <!-- Step 2: Beat 2 Convergence -->
+  <g transform="translate(558, 68)">
+    <rect width="235" height="180" rx="6" fill="url(#beatGrad)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.3"/>
+    <rect x="0" y="0" width="235" height="4" rx="2" fill="#38bdf8"/>
+    <text x="16" y="26" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#38bdf8">PROGRESS 0.52 - 0.78</text>
+    <text x="16" y="48" font-family="'Geist Mono', monospace" font-size="13" font-weight="800" fill="#ffffff">02 // CONVERGENCE</text>
+    <text x="16" y="72" font-family="system-ui, sans-serif" font-size="10.5" fill="#cbd5e1">Camera pans into Cluster 2.</text>
+    <text x="16" y="90" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">Focus on distributed systems, compilers, algorithms &amp; open code.</text>
+    <rect x="16" y="142" width="100" height="18" rx="3" fill="#061c32" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.4"/>
+    <text x="24" y="155" font-family="'Geist Mono', monospace" font-size="8.5" fill="#38bdf8">Cluster: Systems</text>
+  </g>
+
+  <!-- Step 3: Beat 3 Community -->
+  <g transform="translate(821, 68)">
+    <rect width="235" height="180" rx="6" fill="url(#beatGrad)" stroke="#4ade80" stroke-width="1" stroke-opacity="0.3"/>
+    <rect x="0" y="0" width="235" height="4" rx="2" fill="#4ade80"/>
+    <text x="16" y="26" font-family="'Geist Mono', monospace" font-size="10" font-weight="700" fill="#4ade80">PROGRESS 0.78 - 1.00</text>
+    <text x="16" y="48" font-family="'Geist Mono', monospace" font-size="13" font-weight="800" fill="#ffffff">03 // GATEWAY</text>
+    <text x="16" y="72" font-family="system-ui, sans-serif" font-size="10.5" fill="#cbd5e1">Wide-angle constellation view.</text>
+    <text x="16" y="90" font-family="system-ui, sans-serif" font-size="10" fill="#64748b">All 80 nodes connected. Unlocks jump vectors to People, Events &amp; Join.</text>
+    <rect x="16" y="142" width="112" height="18" rx="3" fill="#052417" stroke="#4ade80" stroke-width="0.8" stroke-opacity="0.4"/>
+    <text x="24" y="155" font-family="'Geist Mono', monospace" font-size="8.5" fill="#4ade80">Constellation Reveal</text>
+  </g>
+</svg>

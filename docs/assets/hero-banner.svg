@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="50%" stop-color="#030712"/>
+      <stop offset="100%" stop-color="#050e24"/>
+    </linearGradient>
+
+    <!-- Radial Glows -->
+    <radialGradient id="centerCyanGlow" cx="50%" cy="45%" r="45%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#0284c7" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#030712" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="leftAmbientGlow" cx="15%" cy="30%" r="35%">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#030712" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Linear Accent Gradients -->
+    <linearGradient id="cyanLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#00f0ff" stop-opacity="0.8"/>
+      <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#f8fafc"/>
+      <stop offset="80%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#00f0ff"/>
+    </linearGradient>
+
+    <!-- Grid Pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.045"/>
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1200" height="420" fill="url(#bgGrad)"/>
+  <rect width="1200" height="420" fill="url(#centerCyanGlow)"/>
+  <rect width="1200" height="420" fill="url(#leftAmbientGlow)"/>
+  <rect width="1200" height="420" fill="url(#grid)"/>
+
+  <!-- Border & Crosshairs -->
+  <rect x="24" y="24" width="1152" height="372" rx="12" fill="none" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.2"/>
+  
+  <!-- Corner Crosshairs -->
+  <path d="M 16 24 L 32 24 M 24 16 L 24 32" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.8"/>
+  <path d="M 1168 24 L 1184 24 M 1176 16 L 1176 32" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.8"/>
+  <path d="M 16 396 L 32 396 M 24 388 L 24 404" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.8"/>
+  <path d="M 1168 396 L 1184 396 M 1176 388 L 1176 404" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.8"/>
+
+  <!-- Top System Bar -->
+  <line x1="24" y1="64" x2="1176" y2="64" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.15"/>
+  <circle cx="50" cy="44" r="4" fill="#00f0ff"/>
+  <circle cx="50" cy="44" r="7" fill="none" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="68" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="11" font-weight="600" fill="#38bdf8" letter-spacing="2">ACM 2026 // STUDENT CHAPTER DIGITAL EXPERIENCE</text>
+  <text x="960" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="10" font-weight="500" fill="#64748b" letter-spacing="1.5">SYS: PRODUCTION CANDIDATE v0.1</text>
+  <rect x="1108" y="38" width="48" height="14" rx="3" fill="#00f0ff" fill-opacity="0.1" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.4"/>
+  <text x="1122" y="48" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="9" font-weight="700" fill="#00f0ff">ACTIVE</text>
+
+  <!-- Ambient Geometric Polygon / Emblem (Left Side) -->
+  <g transform="translate(140, 220)">
+    <!-- Outer Orbit Ring -->
+    <circle cx="0" cy="0" r="105" fill="none" stroke="#00f0ff" stroke-width="1" stroke-dasharray="3 6" stroke-opacity="0.25"/>
+    <circle cx="0" cy="0" r="82" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="8 4" stroke-opacity="0.3"/>
+    
+    <!-- Hexagonal Node Frame -->
+    <polygon points="0,-70 60,-35 60,35 0,70 -60,35 -60,-35" fill="#061229" fill-opacity="0.6" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.4"/>
+    
+    <!-- Dynamic Vectors & Core Logo -->
+    <line x1="-35" y1="40" x2="0" y2="-45" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <line x1="35" y1="40" x2="0" y2="-45" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <line x1="-20" y1="15" x2="20" y2="15" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round"/>
+    
+    <!-- Glowing Vertex Nodes -->
+    <circle cx="0" cy="-45" r="5" fill="#00f0ff"/>
+    <circle cx="-35" cy="40" r="5" fill="#00f0ff"/>
+    <circle cx="35" cy="40" r="5" fill="#00f0ff"/>
+    <circle cx="0" cy="0" r="3" fill="#ffffff"/>
+    
+    <!-- Micro Coordinate Tags -->
+    <text x="-65" y="-55" font-family="'Geist Mono', monospace" font-size="8" fill="#38bdf8" opacity="0.7">N:01[FOUNDATION]</text>
+    <text x="40" y="65" font-family="'Geist Mono', monospace" font-size="8" fill="#38bdf8" opacity="0.7">N:03[COMMUNITY]</text>
+  </g>
+
+  <!-- Central Visual Hierarchy & Copy -->
+  <g transform="translate(320, 120)">
+    <!-- Chapter Category Badge -->
+    <rect x="0" y="0" width="220" height="24" rx="4" fill="#00f0ff" fill-opacity="0.08" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.3"/>
+    <circle cx="12" cy="12" r="3" fill="#00f0ff"/>
+    <text x="24" y="16" font-family="'Geist Mono', 'SF Mono', Consolas, monospace" font-size="10.5" font-weight="600" fill="#00f0ff" letter-spacing="1.5">ASSOCIATION FOR COMPUTING MACHINERY</text>
+
+    <!-- Main Title -->
+    <text x="0" y="78" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="900" fill="url(#titleGrad)" letter-spacing="-1">ACM 2026</text>
+    <text x="360" y="78" font-family="'Geist Mono', monospace" font-size="28" font-weight="700" fill="#00f0ff" opacity="0.9" letter-spacing="2">// DIGITAL EXPERIENCE</text>
+
+    <!-- Editorial Subtitle -->
+    <text x="0" y="116" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="400" fill="#94a3b8" letter-spacing="0.2">
+      An architectural showcase uniting computing rigor, living 3D network storytelling,
+    </text>
+    <text x="0" y="138" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="400" fill="#94a3b8" letter-spacing="0.2">
+      community dossiers, hybrid events radar, and verified open-source student software.
+    </text>
+
+    <!-- Separation Line -->
+    <rect x="0" y="166" width="780" height="1" fill="url(#cyanLineGrad)"/>
+
+    <!-- Technology & Architecture Pill Badges -->
+    <g transform="translate(0, 184)">
+      <!-- Badge 1: Next.js 16 -->
+      <g transform="translate(0, 0)">
+        <rect width="112" height="26" rx="5" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+        <text x="12" y="17" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#f8fafc">▲ Next.js 16</text>
+      </g>
+      <!-- Badge 2: React 19 -->
+      <g transform="translate(122, 0)">
+        <rect width="102" height="26" rx="5" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+        <text x="12" y="17" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#38bdf8">⚛ React 19</text>
+      </g>
+      <!-- Badge 3: TypeScript 5 -->
+      <g transform="translate(234, 0)">
+        <rect width="124" height="26" rx="5" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+        <text x="12" y="17" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#60a5fa">TS TypeScript 5</text>
+      </g>
+      <!-- Badge 4: Tailwind CSS v4 -->
+      <g transform="translate(368, 0)">
+        <rect width="134" height="26" rx="5" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+        <text x="12" y="17" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#22d3ee">≋ Tailwind v4</text>
+      </g>
+      <!-- Badge 5: GSAP ScrollTrigger -->
+      <g transform="translate(512, 0)">
+        <rect width="144" height="26" rx="5" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+        <text x="12" y="17" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#4ade80">⚡ GSAP Timeline</text>
+      </g>
+      <!-- Badge 6: HTML5 3D Canvas -->
+      <g transform="translate(666, 0)">
+        <rect width="136" height="26" rx="5" fill="#06182c" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.4"/>
+        <text x="12" y="17" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#00f0ff">⬡ 60 FPS Canvas</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Coordinates & Metric Indicators -->
+  <line x1="24" y1="366" x2="1176" y2="366" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.12"/>
+  <text x="44" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">LATENCY: 0.0ms [CLIENT RENDERING]</text>
+  <text x="340" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">CANVAS NODES: 80 PARTICLES • 4 CLUSTERS</text>
+  <text x="730" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#64748b" letter-spacing="1">INTERACTIONS: 15 MODULAR TOUCHPOINTS</text>
+  <text x="1060" y="384" font-family="'Geist Mono', monospace" font-size="9.5" fill="#38bdf8" letter-spacing="1">STATUS: READY</text>
+</svg>

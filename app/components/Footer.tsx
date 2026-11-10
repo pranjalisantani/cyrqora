@@ -187,10 +187,10 @@ export default function Footer() {
         {/* Bottom Legal & Trademark Notice */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
           <div>
-            © 2026 ACM FACE Student Chapter. All rights reserved. Built as an official digital experience.
+            © 2026 ACM 2026 Digital Experience Project. Independent digital platform prototype.
           </div>
           <div className="flex items-center gap-4">
-            <span>ACM® is a registered trademark of the Association for Computing Machinery.</span>
+            <span>ACM® is a registered trademark of the Association for Computing Machinery. Unaffiliated educational concept.</span>
           </div>
         </div>
       </div>

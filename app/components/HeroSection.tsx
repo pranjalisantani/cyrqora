@@ -1,23 +1,41 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import NetworkCanvas from "./NetworkCanvas";
+
+function subscribeReducedMotion(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+
+function getReducedMotionSnapshot() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function getServerSnapshot() {
+  return false;
+}
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLElement>(null);
   const pinTrackRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  const reducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getServerSnapshot
+  );
+
   useEffect(() => {
+    if (reducedMotion) return;
+
     gsap.registerPlugin(ScrollTrigger);
-
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReducedMotion) return;
 
     const mm = gsap.matchMedia();
 
@@ -227,7 +245,7 @@ export default function HeroSection() {
     });
 
     return () => mm.revert();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <section
@@ -235,13 +253,95 @@ export default function HeroSection() {
       ref={containerRef}
       className="relative z-10 w-full bg-[#030712] text-slate-100 overflow-hidden"
     >
-      {/* ======================================================== */}
-      {/* DESKTOP PINNED CONTINUOUS SCROLL VIEWPORT               */}
-      {/* ======================================================== */}
-      <div
-        ref={pinTrackRef}
-        className="hidden lg:flex relative h-screen w-full flex-col justify-between overflow-hidden px-8 py-8"
-      >
+      {reducedMotion ? (
+        /* Reduced Motion Accessible View: Clean Non-Pinned Sequential Narrative */
+        <div className="relative z-10 px-4 pt-32 pb-20 max-w-5xl mx-auto space-y-12">
+          {/* Subtle Static Background Canvas */}
+          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-30">
+            <NetworkCanvas progress={0.5} interactive={false} />
+          </div>
+
+          {/* Hero Header */}
+          <div className="text-center max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-950/40 px-3.5 py-1 text-[11px] font-mono uppercase text-cyan-300 mb-6">
+              <span>ASSOCIATION FOR COMPUTING MACHINERY • STUDENT CHAPTER</span>
+            </div>
+            <h1 className="text-5xl sm:text-7xl font-black uppercase text-white tracking-tight leading-tight">
+              ACM FACE
+            </h1>
+            <p className="mt-3 text-2xl sm:text-3xl font-black uppercase tracking-tight text-transparent bg-gradient-to-r from-cyan-300 via-sky-200 to-white bg-clip-text leading-snug">
+              A Living Community of Computing Minds
+            </p>
+            <p className="mt-6 text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+              Where students become researchers, algorithms become systems, and curiosity turns into computational impact.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4 font-mono text-xs">
+              <a
+                href="#people"
+                className="rounded-lg bg-cyan-400 px-7 py-3.5 font-bold text-slate-950 hover:bg-cyan-300 transition-colors"
+              >
+                Meet The Team ↓
+              </a>
+              <a
+                href="#events"
+                className="rounded-lg border border-cyan-500/30 bg-slate-900/60 px-7 py-3.5 text-cyan-300 hover:bg-cyan-950/40 transition-colors"
+              >
+                Upcoming Events →
+              </a>
+            </div>
+          </div>
+
+          {/* 3 Story Cards in a Legible Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+            <div className="corner-crosshair glass-panel rounded-2xl p-6 border border-cyan-500/30">
+              <div className="font-mono text-[10px] text-cyan-400 uppercase tracking-widest mb-2">
+                01 // GLOBAL ROOTS (EST. 1947)
+              </div>
+              <h3 className="text-xl font-bold text-white uppercase">
+                World’s Premier Computing Society
+              </h3>
+              <p className="mt-3 text-sm text-slate-300 font-light leading-relaxed">
+                Chartered under the Association for Computing Machinery. Behind the Turing Award
+                and canonical computing SIGs, ACM establishes global standards of scientific excellence.
+              </p>
+            </div>
+
+            <div className="corner-crosshair glass-panel rounded-2xl p-6 border border-cyan-500/30">
+              <div className="font-mono text-[10px] text-cyan-400 uppercase tracking-widest mb-2">
+                02 // THE CONVERGENCE
+              </div>
+              <h3 className="text-xl font-bold text-white uppercase">
+                Where Theory Turns Into Production
+              </h3>
+              <p className="mt-3 text-sm text-slate-300 font-light leading-relaxed">
+                Eliminating the boundary between textbook proofs and production software.
+                Student-run reading groups, algorithmic clinics, and open-source infrastructure.
+              </p>
+            </div>
+
+            <div className="corner-crosshair glass-panel rounded-2xl p-6 border border-cyan-500/30">
+              <div className="font-mono text-[10px] text-cyan-400 uppercase tracking-widest mb-2">
+                03 // OUR MANDATE
+              </div>
+              <h3 className="text-xl font-bold text-white uppercase">
+                An Open Gateway For Student Growth
+              </h3>
+              <p className="mt-3 text-sm text-slate-300 font-light leading-relaxed">
+                Connecting students with peer mentorship, practical software projects,
+                hands-on technical workshops, and direct access to the global ACM society.
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* ======================================================== */}
+          {/* DESKTOP PINNED CONTINUOUS SCROLL VIEWPORT               */}
+          {/* ======================================================== */}
+          <div
+            ref={pinTrackRef}
+            className="hidden lg:flex relative h-screen w-full flex-col justify-between overflow-hidden px-8 py-8"
+          >
         {/* Living 3D Perspective Network Canvas */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           {/* Subtle Ambient Radial Glow */}
@@ -586,6 +686,8 @@ export default function HeroSection() {
           </p>
         </div>
       </div>
+        </>
+      )}
     </section>
   );
 }

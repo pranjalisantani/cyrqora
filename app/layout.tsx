@@ -13,16 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ACM 2026 // Association for Computing Machinery — Digital Experience",
+  title: "ACM 2026 Digital Experience // Independent Community Platform Prototype",
   description:
-    "Official architectural blueprint and digital experience prototype for ACM 2026. Advancing computing as a science and profession with next-generation digital infrastructure.",
+    "Independent digital platform prototype and architectural concept for a student computing community web experience. Built with Next.js, React, and Tailwind CSS.",
   keywords: [
     "ACM 2026",
-    "Association for Computing Machinery",
-    "Computing",
+    "Digital Experience Prototype",
+    "Computing Community",
     "Computer Science",
-    "Digital Experience",
-    "Research",
+    "Next.js",
+    "React",
+    "Open Source",
   ],
 };
 
